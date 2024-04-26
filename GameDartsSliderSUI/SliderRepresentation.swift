@@ -9,7 +9,8 @@ import SwiftUI
 
 struct SliderRepresentation: UIViewRepresentable {
     @Binding var currentValue: Double
-    @Binding var targetValue: Double
+    
+    var targetValue: Double
     
     func makeUIView(context: Context) -> UISlider {
         let slider = UISlider()
@@ -26,12 +27,11 @@ struct SliderRepresentation: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: UISlider, context: Context) {
-        uiView.value = Float(currentValue)
-        
         let distance = abs(targetValue - currentValue)
         let maxDistance = CGFloat(100)
         let alpha = 1.0 - min(distance / maxDistance, 1.0)
         
+        uiView.value = Float(currentValue)
         uiView.thumbTintColor = UIColor(red: 1.0, green: 0.0, blue: 0.0, alpha: alpha)
     }
     
