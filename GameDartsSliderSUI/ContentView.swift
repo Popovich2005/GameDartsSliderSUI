@@ -8,17 +8,33 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var currentValue = Double.random(in: 0...100).rounded()
+    @State var targetValue = Double.random(in: 0...100).rounded()
+
+    
+    private let contentViewMV = ContentViewViewModel()
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        VStack(spacing: 20) {
+            HStack{
+                Text("Подвиньте слайдер, как можно ближе к:")
+                Text("\(targetValue.formatted())")
+            }
+            HStack {
+                Text("0")
+                
+                SliderRepresentation(currentValue: $currentValue, targetValue: $targetValue)
+                
+                Text("100")
+            }
+            
+            Button("Проверь меня!", action: {} )
+            
+            Button("Начатьзаново", action: {})
         }
         .padding()
     }
 }
-
-#Preview {
-    ContentView()
-}
+//#Preview {
+//    ContentView(currentValue: 25)
+//}
