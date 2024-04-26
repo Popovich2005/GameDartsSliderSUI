@@ -10,6 +10,8 @@ import SwiftUI
 struct SliderRepresentation: UIViewRepresentable {
     @Binding var currentValue: Double
     
+    let contentViewMV:ContentViewViewModel
+
     var targetValue: Double
     
     func makeUIView(context: Context) -> UISlider {
@@ -27,12 +29,10 @@ struct SliderRepresentation: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: UISlider, context: Context) {
-        let distance = abs(targetValue - currentValue)
-        let maxDistance = CGFloat(100)
-        let alpha = 1.0 - min(distance / maxDistance, 1.0)
+        let alpha = contentViewMV.computeScore(targetValue: targetValue, currentValue: currentValue)
         
         uiView.value = Float(currentValue)
-        uiView.thumbTintColor = UIColor(red: 1.0, green: 0.0, blue: 0.0, alpha: alpha)
+        uiView.thumbTintColor = UIColor(red: 1.0, green: 0.0, blue: 0.0, alpha: CGFloat(alpha) / 100)
     }
     
     func makeCoordinator() -> Coordinator {

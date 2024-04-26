@@ -26,6 +26,7 @@ struct ContentView: View {
                 
                 SliderRepresentation(
                     currentValue: $currentValue,
+                    contentViewMV: contentViewMV,
                     targetValue: targetValue
                 )
                 
